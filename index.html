@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNU / Laith</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Starry background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        /* Moon */
+        .moon {
+            position: fixed;
+            top: 100px;
+            right: 100px;
+            width: 120px;
+            height: 120px;
+            background-image: url('assets/images/moon.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        }
+        
+        /* Rainbow borders */
+        .rainbow-border {
+            position: fixed;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff,
+                #0000ff, #8000ff, #ff00ff, #ff0080);
+            z-index: -1;
+        }
+        
+        .rainbow-top {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+        }
+        
+        .rainbow-bottom {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+        }
+        
+        .rainbow-left {
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff,
+                #0000ff, #8000ff, #ff00ff, #ff0080);
+        }
+        
+        .rainbow-right {
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff,
+                #0000ff, #8000ff, #ff00ff, #ff0080);
+        }
+        
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            background: #0066cc;
+            color: white;
+            border: 2px solid #333;
+            padding: 5px 15px;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .nav-btn:hover {
+            background: #0088ff;
+        }
+        
+        /* Main content area */
+        .content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        /* Left sidebar */
+        .sidebar {
+            flex: 0 0 300px;
+        }
+        
+        .profile-card {
+            background: #f0f0f0;
+            border: 3px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            background: #000;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .terminal-text {
+            color: #00ff00;
+            font-size: 12px;
+        }
+        
+        .profile-info h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info p {
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 3px;
+        }
+        
+        .github { background: #333; color: white; }
+        .discord { background: #5865f2; color: white; }
+        .spotify { background: #1db954; color: white; }
+        .chess { background: #8b4513; color: white; }
+        .terminal { background: #000; color: #00ff00; }
+        
+        .current-read {
+            background: #f0f0f0;
+            border: 3px solid #0066cc;
+            padding: 15px;
+            color: #000;
+        }
+        
+        .book-cover {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(45deg, #2a5555, #4a8888);
+            margin: 0 auto 10px;
+            border: 2px solid #333;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+        }
+        
+        .about-text {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #ccc;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        
+        .projects-section h2 {
+            color: #66ccff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .project-card {
+            background: #f0f0f0;
+            border: 3px solid #0066cc;
+            padding: 12px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .project-title {
+            color: #ff6600;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .project-desc {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        
+        /* Nyan cat */
+        .nyan-cat {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 60px;
+            height: 40px;
+            background: #ff69b4;
+            border-radius: 10px;
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translatey(0px); }
+            50% { transform: translatey(-10px); }
+        }
+        
+        .nyan-cat::before {
+            content: '🌈';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        .nyan-cat::after {
+            content: '🐱';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Starry background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Moon -->
+    <div class="moon"></div>
+    
+    <!-- Rainbow borders -->
+    <div class="rainbow-border rainbow-top"></div>
+    <div class="rainbow-border rainbow-bottom"></div>
+    <div class="rainbow-border rainbow-left"></div>
+    <div class="rainbow-border rainbow-right"></div>
+    
+    <!-- Nyan cat -->
+    <div class="nyan-cat"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">$ whoami / <span style="color: #ff6600;">Twelve</span></h1>
+            <p class="subtitle">Digital Ghost in the Wire</p>
+            
+            <nav class="nav">
+                <a href="#" class="nav-btn">Home</a>
+                <a href="#" class="nav-btn">CTF Writeups</a>
+                <a href="#" class="nav-btn">Projects</a>
+                <a href="#" class="nav-btn">Chess</a>
+                <a href="#" class="nav-btn">Contact</a>
+            </nav>
+        </div>
+        
+        <div class="content">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="profile-pic">
+                        <span class="terminal-text">root@twelve:~#</span>
+                    </div>
+                    <div class="profile-info">
+                        <h3>$ cat /etc/passwd | grep twelve</h3>
+                        <p><strong>Name, Age:</strong> Twelve, 18</p>
+                        <p><strong>Pronouns:</strong> He/Him</p>
+                        <p><strong>Field:</strong> Computer Science Student</p>
+                        <p><strong>Focus:</strong> Cyber Security</p>
+                        <p><strong>Chess Rating:</strong> 1337 (Chess.com)</p>
+                        <p><strong>Status:</strong> Breaking things to understand them</p>
+                        <div class="social-links">
+                            <a href="https://github.com/whoistwelve" class="social-btn github" title="GitHub">G</a>
+                            <a href="https://chess.com/member/whoistwelve" class="social-btn chess" title="Chess.com">♟</a>
+                            <a href="https://open.spotify.com/user/whoistwelve" class="social-btn spotify" title="Spotify">S</a>
+                            <a href="#" class="social-btn terminal" title="Terminal">$</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Read -->
+                <div class="current-read">
+                    <div class="book-cover"></div>
+                    <h4>Current CTF</h4>
+                    <p style="font-size: 10px; margin-top: 5px;">TryHackMe: BountyHacker</p>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="about-text">
+                    <p>Hey, I'm <strong>Twelve</strong> — an 18-year-old computer science student with a deep obsession for cybersecurity, digital forensics, and vintage internet aesthetics. I break things to understand them. I build things to push boundaries.</p>
+                    <br>
+                    <p>Currently diving deep into privilege escalation techniques, CTF challenges, and the art of digital penetration testing. My playground includes TryHackMe boxes, GTFOBins explorations, and custom terminal environments. When I'm not hunting for vulnerabilities, you'll find me crafting complex websites with pure HTML/CSS or strategizing over chess matches.</p>
+                    <br>
+                    <p>I believe in understanding systems at their core level - from network protocols to kernel exploits. Every bug is a feature waiting to be discovered, every system a puzzle to be solved. My approach combines technical precision with creative thinking, always pushing the boundaries of what's possible in the digital realm.</p>
+                </div>
+                
+                <div class="projects-section">
+                    <h2>~/Projects</h2>
+                    
+                    <div class="project-card">
+                        <div class="project-title">BountyHacker CTF Writeup</div>
+                        <div class="project-desc">Deep dive into privilege escalation using tar GTFOBins exploit. Complete walkthrough with methodology.</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Custom Terminal UI</div>
+                        <div class="project-desc">Aesthetic terminal setup with custom prompts, colors, and productivity scripts. Built for daily hacking workflow.</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Vintage Web Portfolio</div>
+                        <div class="project-desc">1500+ lines of pure HTML/CSS. No frameworks, just raw code and creativity. Retro aesthetic meets modern functionality.</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Network Recon Suite</div>
+                        <div class="project-desc">Custom Nmap automation scripts for penetration testing. Streamlined reconnaissance with intelligent scanning patterns.</div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Chess Algorithm Analysis</div>
+                        <div class="project-desc">Studying psychological patterns in chess gameplay. Rating: 1337 and climbing through strategic analysis.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Generate random stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 150;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Random animation delay
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Add some interactivity to nav buttons
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Add active state visual feedback
+                btn.style.background = '#0088ff';
+                setTimeout(() => {
+                    btn.style.background = '#0066cc';
+                }, 200);
+            });
+        });
+        
+        // Initialize
+        createStars();
+    </script>
+</body>
+</html>
