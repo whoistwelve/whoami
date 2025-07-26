@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GNU / Laith</title>
+    <title>Twelve</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
         
@@ -50,57 +50,50 @@
             right: 100px;
             width: 120px;
             height: 120px;
-            background-image: url('assets/images/moon.png');
+            background-image: url('./assets/images/moon.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
             filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
         }
         
-        /* Rainbow borders */
-        .rainbow-border {
+        /* Subtle borders */
+        .border {
             position: fixed;
-            background: linear-gradient(90deg, 
-                #ff0000, #ff8000, #ffff00, #80ff00, 
-                #00ff00, #00ff80, #00ffff, #0080ff,
-                #0000ff, #8000ff, #ff00ff, #ff0080);
+            background: #333;
             z-index: -1;
         }
         
-        .rainbow-top {
+        .border-top {
             top: 0;
             left: 0;
             width: 100%;
-            height: 10px;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #0066cc);
         }
         
-        .rainbow-bottom {
+        .border-bottom {
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 10px;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #0066cc);
         }
         
-        .rainbow-left {
+        .border-left {
             top: 0;
             left: 0;
-            width: 10px;
+            width: 2px;
             height: 100%;
-            background: linear-gradient(0deg, 
-                #ff0000, #ff8000, #ffff00, #80ff00, 
-                #00ff00, #00ff80, #00ffff, #0080ff,
-                #0000ff, #8000ff, #ff00ff, #ff0080);
+            background: linear-gradient(0deg, #00ffff, #0066cc);
         }
         
-        .rainbow-right {
+        .border-right {
             top: 0;
             right: 0;
-            width: 10px;
+            width: 2px;
             height: 100%;
-            background: linear-gradient(0deg, 
-                #ff0000, #ff8000, #ffff00, #80ff00, 
-                #00ff00, #00ff80, #00ffff, #0080ff,
-                #0000ff, #8000ff, #ff00ff, #ff0080);
+            background: linear-gradient(0deg, #00ffff, #0066cc);
         }
         
         /* Main container */
@@ -286,41 +279,7 @@
             line-height: 1.4;
         }
         
-        /* Nyan cat */
-        .nyan-cat {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            width: 60px;
-            height: 40px;
-            background: #ff69b4;
-            border-radius: 10px;
-            z-index: 2;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translatey(0px); }
-            50% { transform: translatey(-10px); }
-        }
-        
-        .nyan-cat::before {
-            content: '🌈';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
-        
-        .nyan-cat::after {
-            content: '🐱';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-        }
+
     </style>
 </head>
 <body>
@@ -330,14 +289,11 @@
     <!-- Moon -->
     <div class="moon"></div>
     
-    <!-- Rainbow borders -->
-    <div class="rainbow-border rainbow-top"></div>
-    <div class="rainbow-border rainbow-bottom"></div>
-    <div class="rainbow-border rainbow-left"></div>
-    <div class="rainbow-border rainbow-right"></div>
-    
-    <!-- Nyan cat -->
-    <div class="nyan-cat"></div>
+    <!-- Subtle borders -->
+    <div class="border border-top"></div>
+    <div class="border border-bottom"></div>
+    <div class="border border-left"></div>
+    <div class="border border-right"></div>
     
     <div class="container">
         <!-- Header -->
